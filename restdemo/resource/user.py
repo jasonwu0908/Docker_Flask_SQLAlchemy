@@ -1,11 +1,9 @@
 from flask_restful import Resource, reqparse
-
 from restdemo import db
 from restdemo.model.user import Users as UserModel
 
 
 user_list = []
-
 
 def min_length_str(min_length):
     def validate(s):
@@ -17,15 +15,15 @@ def min_length_str(min_length):
         if len(s) >= min_length:
             return s
         raise Exception("String must be at least %i characters long" % min_length)
-
     return validate
 
 
-class UserList(Resource):
 
+class UserList(Resource):
     def get(self):
         users = db.session.query(UserModel).all()
         return [u.as_dict() for u in users]
+
 
 
 class User(Resource):
